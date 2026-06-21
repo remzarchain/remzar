@@ -1,0 +1,9 @@
+pub mod por_000_ephemeral_registration;
+pub mod por_001_consensus_config;
+pub mod por_002_puzzle_engine;
+pub mod por_003_puzzle_pool;
+pub mod por_004_puzzle_proof;
+pub mod por_005_time_management;
+pub mod por_006_committee_eligibility;
+pub mod por_007_leader_schedule;
+pub mod por_008_validator_lifecycle;

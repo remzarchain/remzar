@@ -1,0 +1,410 @@
+[package]
+name = "remzar-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+directories        = "6.0.0"
+rand               = "0.10.1"
+parking_lot        = "0.12.5"
+hex-literal        = "1.1.0"
+rayon              = "1.12.0"
+colored            = "3.1.1"
+once_cell          = "1.21.4"
+num_cpus           = "1.17.0"
+pdf-writer         = "0.14.0"
+regex              = "1.12.3"
+aes-gcm            = "0.10.3"
+blake3             = "1.8.5"
+argon2             = "0.5.3"
+zeroize            = "1.8.2"
+dialoguer          = "0.12.0"
+futures            = "0.3.32"
+chrono             = "0.4.44"
+serde-big-array    = "0.5.1"
+serde_json         = "1.0.149"
+serde_bytes        = "0.11.19"
+thiserror          = "2.0.18"
+anyhow             = "1.0.102"
+qrcode             = "0.14.1"
+fs4                = { version = "1.1.0", features = ["sync"] }
+hex                = { version = "0.4.3", features = ["serde"] }
+uuid               = { version = "1.23.1", features = ["v4"] }
+bitflags           = { version = "2.11.1", features = ["serde"] }
+serde              = { version = "1.0.228", features = ["derive"] }
+tracing            = { version = "0.1.44", features = ["attributes"] }
+tracing-subscriber = { version = "0.3.23", features = ["fmt", "env-filter"] }
+clap               = { version = "4.6.1", features = ["derive", "env"] }
+postcard           = { version = "1.1.3", features = ["alloc", "use-std"] }
+image              = { version = "0.25.10", default-features = false, features = ["png"] }
+tokio              = { version = "1.52.3", features = ["rt", "rt-multi-thread", "sync", "time", "macros", "signal"] }
+fips204            = { version = "0.4.6", default-features = false, features = ["ml-dsa-65", "default-rng"] }
+fips203            = { version = "0.4.3", default-features = false, features = ["ml-kem-768", "default-rng"] }
+libp2p             = { version = "0.56.0", default-features = false, features = [
+    "tcp", "dns", "noise", "ping", "gossipsub", "kad", "identify", "tokio", "yamux", "macros", "request-response"
+] }
+
+[[bin]]
+name = "fuzz_ml_dsa_65_001_keypairs"
+path = "fuzz_targets/fuzz_ml_dsa_65_001_keypairs.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_ml_dsa_65_002_merkleproof"
+path = "fuzz_targets/fuzz_ml_dsa_65_002_merkleproof.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_ml_dsa_65_003_batch_signature"
+path = "fuzz_targets/fuzz_ml_dsa_65_003_batch_signature.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_ml_dsa_65_004_guardian_signature"
+path = "fuzz_targets/fuzz_ml_dsa_65_004_guardian_signature.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_ml_dsa_65_005_encryption"
+path = "fuzz_targets/fuzz_ml_dsa_65_005_encryption.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_ml_dsa_65_006_edwallet"
+path = "fuzz_targets/fuzz_ml_dsa_65_006_edwallet.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_block_001_metadata"
+path = "fuzz_targets/fuzz_block_001_metadata.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_block_002_blocks"
+path = "fuzz_targets/fuzz_block_002_blocks.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_blockchain_000_consensus"
+path = "fuzz_targets/fuzz_blockchain_000_consensus.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_blockchain_001_builder"
+path = "fuzz_targets/fuzz_blockchain_001_builder.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_blockchain_003_orchestration_engine"
+path = "fuzz_targets/fuzz_blockchain_003_orchestration_engine.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_blockchain_004_orchestration_run"
+path = "fuzz_targets/fuzz_blockchain_004_orchestration_run.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_blockchain_005_start"
+path = "fuzz_targets/fuzz_blockchain_005_start.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_genesis_001_block"
+path = "fuzz_targets/fuzz_genesis_001_block.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_mempool"
+path = "fuzz_targets/fuzz_mempool.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_transaction_001_tx"
+path = "fuzz_targets/fuzz_transaction_001_tx.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_transaction_002_tx_register"
+path = "fuzz_targets/fuzz_transaction_002_tx_register.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_transaction_003_tx_reward"
+path = "fuzz_targets/fuzz_transaction_003_tx_reward.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_transaction_004_tx_kind"
+path = "fuzz_targets/fuzz_transaction_004_tx_kind.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_transaction_005_tx_batch"
+path = "fuzz_targets/fuzz_transaction_005_tx_batch.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_transaction_005_tx_account_tree"
+path = "fuzz_targets/fuzz_transaction_005_tx_account_tree.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_transaction_006_tx_account_tree_guards"
+path = "fuzz_targets/fuzz_transaction_006_tx_account_tree_guards.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_validatorstate"
+path = "fuzz_targets/fuzz_validatorstate.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_hash_system_remzarhash"
+path = "fuzz_targets/fuzz_hash_system_remzarhash.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_rocksdb_005_manager"
+path = "fuzz_targets/fuzz_rocksdb_005_manager.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_002_sync_handlers"
+path = "fuzz_targets/fuzz_p2p_002_sync_handlers.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_block_003_puzzleproof"
+path = "fuzz_targets/fuzz_block_003_puzzleproof.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_008_broadcast"
+path = "fuzz_targets/fuzz_p2p_008_broadcast.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_001_sync_builders"
+path = "fuzz_targets/fuzz_p2p_001_sync_builders.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_003_sync_swarmevent"
+path = "fuzz_targets/fuzz_p2p_003_sync_swarmevent.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_006_sync_runtime"
+path = "fuzz_targets/fuzz_p2p_006_sync_runtime.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_005_sync_gossipsub"
+path = "fuzz_targets/fuzz_p2p_005_sync_gossipsub.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_s_03_start_node"
+path = "fuzz_targets/fuzz_s_03_start_node.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_s_05_send_remzar"
+path = "fuzz_targets/fuzz_s_05_send_remzar.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_reward_halving"
+path = "fuzz_targets/fuzz_reward_halving.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_s_02_generate_wallet"
+path = "fuzz_targets/fuzz_s_02_generate_wallet.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_command_manager"
+path = "fuzz_targets/fuzz_command_manager.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_alpha_001_global_configuration"
+path = "fuzz_targets/fuzz_alpha_001_global_configuration.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_utility_time_policy"
+path = "fuzz_targets/fuzz_utility_time_policy.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_005_pq_fips203kem"
+path = "fuzz_targets/fuzz_p2p_005_pq_fips203kem.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_006_reqresp"
+path = "fuzz_targets/fuzz_p2p_006_reqresp.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_reorg_005_fork_choice"
+path = "fuzz_targets/fuzz_reorg_005_fork_choice.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_command_line_003_manager"
+path = "fuzz_targets/fuzz_command_line_003_manager.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_004_sync_entrypoint"
+path = "fuzz_targets/fuzz_p2p_004_sync_entrypoint.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_p2p_007_handshake"
+path = "fuzz_targets/fuzz_p2p_007_handshake.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_por_002_puzzle_engine"
+path = "fuzz_targets/fuzz_por_002_puzzle_engine.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_por_004_puzzle_proof"
+path = "fuzz_targets/fuzz_por_004_puzzle_proof.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_committee_eligibility"
+path = "fuzz_targets/fuzz_committee_eligibility.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_por_007_leader_schedule"
+path = "fuzz_targets/fuzz_por_007_leader_schedule.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_rocksdb_002_schema"
+path = "fuzz_targets/fuzz_rocksdb_002_schema.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_rocksdb_003_batches"
+path = "fuzz_targets/fuzz_rocksdb_003_batches.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]

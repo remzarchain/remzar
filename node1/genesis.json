@@ -1,0 +1,12 @@
+{
+  "chain_id": "remzar-06-26-26-v1",
+  "description": "remzar blockchain",
+  "version": "1.0.0",
+  "genesis_block": {
+    "genesis_hash": "48ca1f065debb4f4291f1423c3e9da446635e6fbc39e169c2c7b4dfb25b310c95143bc31ab6afb7e63a861abb4807dfc50611765337aa459e3470f682d210e66",
+    "merkle_root": "29f984fad3389b577d75f22c4c849b1a848fb2ae9e458778ea36bd1765a79dab29f984fad3389b577d75f22c4c849b1a848fb2ae9e458778ea36bd1765a79dab",
+    "prev_hash": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "timestamp": 1782432000,
+    "data": "Genesis for Remzar Blockchain - A PQ L1 base layer for verified data"
+  }
+}
