@@ -781,10 +781,8 @@ proptest! {
         validator_seed in any::<u64>(),
         timestamp_seed in any::<u64>(),
         height_seed in any::<u64>(),
-        delay in 0u64..=100u64,
+        delay in 0u64..=GlobalConfiguration::CANONICAL_LEASE_BLOCKS,
     ) {
-        prop_assume!(delay <= GlobalConfiguration::CANONICAL_LEASE_BLOCKS);
-
         let mut state = fresh_state();
         let validator = wallet(validator_seed);
         let join_height = valid_join_height(height_seed);
@@ -801,13 +799,13 @@ proptest! {
                 !state
                     .proposable_at(eligible_height.saturating_sub(1), delay)
                     .contains(&validator),
-                "non-founder validator must not be proposable before join_height + activation delay while still inside canonical lease"
+                "non-founder validator must not be proposable before join_height + activation delay"
             );
         }
 
         prop_assert!(
             state.proposable_at(eligible_height, delay).contains(&validator),
-            "non-founder validator must be proposable at join_height + activation delay while still inside canonical lease"
+            "non-founder validator must be proposable at join_height + activation delay"
         );
     }
 
