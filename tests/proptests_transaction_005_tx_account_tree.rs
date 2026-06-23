@@ -750,22 +750,112 @@ proptest! {
         let genesis = test_block(0, [0u8; 64])
             .expect("genesis block should construct");
 
+        let genesis_hash = genesis.block_hash;
+
         chain.tree
-            .add_block(genesis)
+            .add_block(genesis.clone())
             .expect("genesis should be accepted");
 
-        let bad_child = test_block(1, fixed_hash(bad_hash_seed))
-            .expect("bad child block should construct");
+        prop_assert_eq!(
+            chain.tree.latest_block_height(),
+            0,
+            "genesis should leave tip at height 0"
+        );
+
+        prop_assert_eq!(
+            chain.tree.get_block_by_index(0).expect("genesis should exist"),
+            genesis,
+            "genesis must be stored before testing bad child"
+        );
+
+        let before_tip_height = chain.tree.latest_block_height();
+        let before_genesis = chain
+            .tree
+            .get_block_by_index(0)
+            .expect("genesis should exist before bad child");
+
+        let zero_hash = [0u8; 64];
+
+        let mut chosen_bad_child: Option<(Hash, Block)> = None;
+
+        for offset in 0u16..=255u16 {
+            let seed = bad_hash_seed.wrapping_add(offset as u8);
+            let candidate_previous_hash = fixed_hash(seed);
+
+            if candidate_previous_hash == zero_hash {
+                continue;
+            }
+
+            if candidate_previous_hash == genesis_hash {
+                continue;
+            }
+
+            match test_block(1, candidate_previous_hash) {
+                Ok(block) => {
+                    chosen_bad_child = Some((candidate_previous_hash, block));
+                    break;
+                }
+                Err(_) => {
+                    continue;
+                }
+            }
+        }
+
+        let (bad_previous_hash, bad_child) = chosen_bad_child
+            .expect("test setup must find a structurally valid child with a wrong previous_hash");
+
+        prop_assert_ne!(
+            bad_previous_hash,
+            zero_hash,
+            "test setup must not use all-zero previous_hash for non-genesis block"
+        );
+
+        prop_assert_ne!(
+            bad_previous_hash,
+            genesis_hash,
+            "test setup must generate a previous_hash different from the real parent"
+        );
+
+        prop_assert_eq!(
+            bad_child.metadata.index,
+            1,
+            "bad child must target the next block height"
+        );
+
+        prop_assert_eq!(
+            bad_child.metadata.previous_hash,
+            bad_previous_hash,
+            "bad child must contain the selected wrong previous_hash"
+        );
+
+        let result = chain.tree.add_block(bad_child);
 
         prop_assert!(
-            chain.tree.add_block(bad_child).is_err(),
-            "child with wrong previous_hash must be rejected"
+            result.is_err(),
+            "child with structurally valid but wrong previous_hash must be rejected"
+        );
+
+        prop_assert_eq!(
+            chain.tree.latest_block_height(),
+            before_tip_height,
+            "bad child must not advance chain tip"
         );
 
         prop_assert_eq!(
             chain.tree.latest_block_height(),
             0,
-            "bad child must not advance chain tip"
+            "bad child must leave tip at genesis"
+        );
+
+        prop_assert_eq!(
+            chain.tree.get_block_by_index(0).expect("genesis should still exist"),
+            before_genesis,
+            "bad child must not mutate existing canonical genesis block"
+        );
+
+        prop_assert!(
+            chain.tree.get_block_by_index(1).is_err(),
+            "bad child must not be stored as canonical block #1"
         );
     }
 
