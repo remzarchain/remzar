@@ -1756,7 +1756,7 @@ fn genesis_001_block_101_print_mainnet_genesis_hash_vector() -> TestResult {
     let launch_ts: u64 = 1_782_432_000;
 
     let genesis = GenesisBlock::new_with_timestamp(
-        "Genesis for Remzar Blockchain - A PQ L1 base layer for verified data",
+        "genesis for remzar blockchain - a single executable pq l1 base layer for verified data.",
         launch_ts,
     )?;
 
