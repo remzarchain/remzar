@@ -1268,7 +1268,7 @@ fn game_88_custom_config_can_use_zero_entry_fee_structurally() -> TestResult {
 #[test]
 fn game_89_custom_config_can_use_alternate_static_house_structurally() -> TestResult {
     let cfg = SlotMachineGameConfig {
-        house_address: "r00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        house_address: "r72656d7a6172626c6f636b636861696e6279726f6e616c6464656c616d6f7474656c61756e636865646a756e65323632303236746f323230306d61696e6e6574",
         entry_fee_micro: 1,
     };
     assert_eq!(cfg.house_address.len(), 129);
@@ -1279,7 +1279,7 @@ fn game_89_custom_config_can_use_alternate_static_house_structurally() -> TestRe
 fn game_90_max_payout_is_independent_of_custom_house_address() -> TestResult {
     let game = SlotMachineGame {
         cfg: SlotMachineGameConfig {
-            house_address: "r00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            house_address: "r72656d7a6172626c6f636b636861696e6279726f6e616c6464656c616d6f7474656c61756e636865646a756e65323632303236746f323230306d61696e6e6574",
             entry_fee_micro: 1,
         },
     };
