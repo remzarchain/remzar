@@ -25,7 +25,7 @@ fn export_genesis_json_for_chain() {
 
     // 1) Build GenesisBlock (CURRENT schema: NO por_view, NO miner)
     let genesis_block = GenesisBlock::new_with_timestamp(
-        "Genesis for Remzar Blockchain - A PQ L1 base layer for verified data",
+        "genesis for remzar blockchain - a single executable pq l1 base layer for verified data.",
         ts,
     )
     .expect("Failed to create GenesisBlock");
@@ -33,7 +33,7 @@ fn export_genesis_json_for_chain() {
     // 2) Build GenesisFile using the CURRENT schema
     let genesis_file: GenesisFile = serde_json::from_value(json!({
         "chain_id": "remzar-06-26-26-v1",
-        "description": "remzar blockchain",
+        "description": "remzar blockchain by ronald delamotte",
         "version": "1.0.0",
         "genesis_block": genesis_block
     }))
