@@ -54,7 +54,7 @@ use rust_rocksdb::{DB, WriteBatch};
 /// - Receives entry fees (PLAYER -> HOUSE)
 /// - Pays winnings (HOUSE -> PLAYER)
 ///   NOTE: This wallet is operator-controlled; the player should NEVER be asked for its passphrase.
-pub const SLOT_HOUSE_ADDRESS: &str = "r46450b0e9b7f8b69638a84d43565b81232ef877f4d7125cf314f64ebb7829eb0bcf3b9387b59e7d204c611ade960ca1e988780fc2b214f4ea2971f217d7e5c8e";
+pub const SLOT_HOUSE_ADDRESS: &str = "rae657f74dd0cda2144c396c54e60c4703866f9c2b486aa0925d2af008de21115e3aa3215409015a1944eeff1474896b261f52564a757bb279e56ecaa123319e7";
 
 /// 1 ZAR entry fee per play (in micro-units).
 pub const SLOT_ENTRY_FEE_MICRO: u64 = UNIT_DIVISOR;
