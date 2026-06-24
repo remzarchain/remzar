@@ -68,7 +68,7 @@ impl GlobalConfiguration {
     pub const GENESIS_FOUNDER_KEY_HASH_DOMAIN: &'static [u8] = b"REMZAR_FOUNDER_KEY_HASH_V1\0";
 
     /// Genesis keygen.
-    pub const GENESIS_FOUNDER_KEY_EXPECTED_HASH: &'static str = "8a952fdd39da65821dbe85b7d8ff5929f748df3378874d80987163423ef0ee1a91536e335bea083e77b0385df361cb7dfb99783bcbf35819b06d43751254dcbc";
+    pub const GENESIS_FOUNDER_KEY_EXPECTED_HASH: &'static str = "167e42a40f551f7061734f7d1069031df587af0516300583a61557003420cd1a295ddc1e8916a43cd8b07e0063b408cb17f37b9c4b9f7f66f6cb2cd0c67b70fb";
 
     // ─────────────────────────────────────────────────────────────────────────────
     //--- Genesis Block Configuration
@@ -101,8 +101,8 @@ impl GlobalConfiguration {
 
     /// The address of the Genesis validator.
     /// MUST be canonical wallet format: "r" + 128 lowercase hex chars (total len = 129).
-    pub const GENESIS_VALIDATOR: &str = "r0000000000000000000000000000000000000000000000000000000000000000\
-        0000000000000000000000000000000000000000000000000000000000000000";
+    /// decode string: remzarblockchainbyronalddelamottelaunchedjune262026to2200mainnet
+    pub const GENESIS_VALIDATOR: &str = "r72656d7a6172626c6f636b636861696e6279726f6e616c6464656c616d6f7474656c61756e636865646a756e65323632303236746f323230306d61696e6e6574";
 
     /// No reward is distributed for the Genesis block.
     pub const GENESIS_REWARD: u64 = 0;
