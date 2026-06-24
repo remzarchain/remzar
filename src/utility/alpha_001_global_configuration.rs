@@ -46,12 +46,10 @@ impl GlobalConfiguration {
 
     pub const GENESIS_JSON_PATH: &str = "blockchain/genesis.json";
 
-    /// Default genesis timestamp for new user blockchains.
-    /// DEV-NET  1780277303
-    /// MAIN-NET 1782432000
-    /// 2026-06-26 00:00:00 UTC
-    /// 2026-06-25 8:00 PM North American Eastern time during June.
-    pub const DEFAULT_USER_CHAIN_GENESIS_TIMESTAMP: u64 = 1782432000;
+    /// Default genesis timestamp solo founder; Ronald Delamotte initiated.
+    /// MAIN-NET 1782435600
+    /// UTC: 2026-06-26 01:00:00 UTC
+    pub const DEFAULT_USER_CHAIN_GENESIS_TIMESTAMP: u64 = 1782435600;
 
     // ─────────────────────────────────────────────────────────────────────────────
     //--- Genesis Founder Key Configuration
