@@ -156,9 +156,7 @@ mod utility {
 
         impl GlobalConfiguration {
             pub const BLOCK_CREATION_INTERVAL_SECS: u64 = 30;
-            pub const GENESIS_VALIDATOR: &'static str =
-                "r0000000000000000000000000000000000000000000000000000000000000000\
-                0000000000000000000000000000000000000000000000000000000000000000";
+            pub const GENESIS_VALIDATOR: &'static str = "r72656d7a6172626c6f636b636861696e6279726f6e616c6464656c616d6f7474656c61756e636865646a756e65323632303236746f323230306d61696e6e6574";
 
             // Required by the real src/utility/time_policy.rs.
             pub const SLOT_GATE_DRIFT_SECS: u64 = 2;
