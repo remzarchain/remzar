@@ -1613,7 +1613,7 @@ fn global_config_094_batch_item_limit_is_at_least_default_user_chain_buffer() ->
 fn global_config_095_default_user_chain_genesis_timestamp_is_after_min_timestamp() -> TestResult {
     assert_eq!(
         GlobalConfiguration::DEFAULT_USER_CHAIN_GENESIS_TIMESTAMP,
-        1_780_277_303
+        1782435600
     );
     assert_condition(
         GlobalConfiguration::DEFAULT_USER_CHAIN_GENESIS_TIMESTAMP
