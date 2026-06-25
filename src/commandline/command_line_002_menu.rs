@@ -10,185 +10,226 @@ use std::io::{self, Write};
 /// Interactive menu.
 pub struct Menu;
 
+#[derive(Clone, Copy)]
+enum MenuTone {
+    Cyan,
+    BrightCyan,
+    Yellow,
+    Green,
+}
+
 impl Menu {
     pub fn new() -> Self {
         Self
     }
 
-    /// Render the full menu.
+    /// Mainnet menu system — June 26, 2026
     pub fn display(&self) {
-        println!(
-            "\n{}",
-            "╭──────────────────────────────────────────────────╮"
-                .cyan()
-                .bold()
+        println!();
+
+        Self::print(
+            "╭────────────────────────────────────────────────────────────╮",
+            MenuTone::Cyan,
+            true,
         );
-        println!(
-            "{}",
-            "│                 Remzar Management                │".cyan()
+        Self::print(
+            "│                  REMZAR MANAGEMENT CONSOLE                 │",
+            MenuTone::BrightCyan,
+            true,
         );
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤"
-                .cyan()
-                .bold()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
         );
 
-        // Database Setup
-        println!(
-            "{}",
-            "│ [1]   🛢️    Setup Database                       │".bright_green()
+        Self::print(
+            "│ CORE OPERATIONS                                            │",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ [1]   🛢️   Setup Database                                  │",
+            MenuTone::Cyan,
+            false,
+        );
+        Self::print(
+            "│ [2]   💳   Generate New Wallet                             │",
+            MenuTone::Cyan,
+            false,
         );
 
-        // Wallet Mgmt
-        println!(
-            "{}",
-            "│ [2]   💳    Generate New Wallet                  │".bright_green()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ NODE CONTROL                                               │",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ [3]   🌐   START ⇒  REMZAR BLOCKCHAIN NODE                 │",
+            MenuTone::Green,
+            true,
+        );
+        Self::print(
+            "│ [4]   🖥️   View Blockchain Console                         │",
+            MenuTone::Green,
+            false,
         );
 
-        // Added separator between [2] and [3]
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤".magenta()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ COIN OPERATIONS                                            │",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ [5]   📤   Send       ⇒    Remzar COIN                     │",
+            MenuTone::Cyan,
+            false,
+        );
+        Self::print(
+            "│ [6]   📥   Receive    ⇐    Remzar COIN                     │",
+            MenuTone::Cyan,
+            false,
         );
 
-        // Blockchain init (START NODE block on its own)
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤".magenta()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
         );
-        println!(
-            "{}",
-            "│ [3]   🌐    'START' REMZAR BLOCKCHAIN NODE       │"
-                .magenta()
-                .bold()
+        Self::print(
+            "│ WALLET AND PARTICIPANT STATUS                              │",
+            MenuTone::Cyan,
+            true,
         );
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤".magenta()
+        Self::print(
+            "│ [7]   ✅   View Participant Status                         │",
+            MenuTone::Cyan,
+            false,
         );
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤".magenta()
+        Self::print(
+            "│ [8]   💰   Balance of Wallet                               │",
+            MenuTone::Cyan,
+            false,
         );
-        println!(
-            "{}",
-            "│ [4]   🖥️    View Blockchain Console              │"
-                .bright_cyan()
-                .bold()
-        );
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤"
-                .white()
-                .bold()
-        );
-        println!(
-            "{}",
-            "│ [5]   📤    Send       ⇒    Remzar COIN          │".white()
-        );
-        println!(
-            "{}",
-            "│ [6]   📥    Receive    ⇐    Remzar COIN          │".white()
-        );
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤"
-                .white()
-                .bold()
+        Self::print(
+            "│ [9]   💼   List Wallets                                    │",
+            MenuTone::Cyan,
+            false,
         );
 
-        // Status
-        println!(
-            "{}",
-            "│ [7]   ✅    View Participant Status              │".cyan()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ CERTIFICATES AND P2P SERVICES                              │",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ [10]  🖼️   Create Certificates (mint)                      │",
+            MenuTone::Cyan,
+            false,
+        );
+        Self::print(
+            "│ [11]  💬   Send Chat (p2p message)                         │",
+            MenuTone::Cyan,
+            false,
+        );
+        Self::print(
+            "│ [12]  📂   Send File (p2p file sharing)                    │",
+            MenuTone::Cyan,
+            false,
         );
 
-        // Balance
-        println!(
-            "{}",
-            "│ [8]   💰    Balance of Wallet                    │".cyan()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ DEBUG AND AUDIT TOOLS                                      │",
+            MenuTone::Yellow,
+            true,
+        );
+        Self::print(
+            "│ [13]  🔓   Debug: Open Encrypted Private Key               │",
+            MenuTone::Yellow,
+            false,
+        );
+        Self::print(
+            "│ [14]  💾   Debug: Backup Wallet                            │",
+            MenuTone::Yellow,
+            false,
+        );
+        Self::print(
+            "│ [15]  🛠️   Debug: List Raw Database Keys                   │",
+            MenuTone::Yellow,
+            false,
+        );
+        Self::print(
+            "│ [16]  📜   Debug: Log Information                          │",
+            MenuTone::Yellow,
+            false,
+        );
+        Self::print(
+            "│ [17]  📑   Debug: Audit Report                             │",
+            MenuTone::Yellow,
+            false,
         );
 
-        // Wallet Utilities
-        println!(
-            "{}",
-            "│ [9]   💼    List Wallets                         │".cyan()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ SATOSHI GAME MODULE                                        │",
+            MenuTone::Cyan,
+            true,
+        );
+        Self::print(
+            "│ [18]  🎰   Slot Machine Game                               │",
+            MenuTone::Cyan,
+            false,
         );
 
-        // Export / Off-chain (moved up above debug)
-        println!(
-            "{}",
-            "│ [10]  🖼️    Create Certificates (mint)           │".blue()
+        Self::print(
+            "├────────────────────────────────────────────────────────────┤",
+            MenuTone::Cyan,
+            true,
         );
-        println!(
-            "{}",
-            "│ [11]  💬    Send Chat (p2p message)              │".blue()
+        Self::print(
+            "│ HELP AND SESSION                                           │",
+            MenuTone::Cyan,
+            true,
         );
-        println!(
-            "{}",
-            "│ [12]  📂    Send File (p2p file sharing)         │".blue()
+        Self::print(
+            "│ [19]  ❓   FAQ (MUST READ)                                 │",
+            MenuTone::Cyan,
+            false,
         );
-
-        // Debug
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤"
-                .yellow()
-                .bold()
-        );
-        println!(
-            "{}",
-            "│ [13]  🔓    Debug: Open Encrypted Private Key    │".yellow()
-        );
-        println!(
-            "{}",
-            "│ [14]  💾    Debug: Backup Wallet                 │".yellow()
-        );
-        println!(
-            "{}",
-            "│ [15]  🛠️    Debug: List Raw Database Keys        │".yellow()
-        );
-        println!(
-            "{}",
-            "│ [16]  📜    Debug: Log Information               │".yellow()
-        );
-        println!(
-            "{}",
-            "│ [17]  📑    Debug: Audit Report                  │".yellow()
-        );
-        println!(
-            "{}",
-            "├──────────────────────────────────────────────────┤"
-                .yellow()
-                .bold()
+        Self::print(
+            "│ [20]  🚪   Exit                                            │",
+            MenuTone::Yellow,
+            true,
         );
 
-        // Game
-        println!(
-            "{}",
-            "│ [18]  🎰    Slot Machine Game                    │".green()
-        );
-
-        // FAQ (moved up)
-        println!(
-            "{}",
-            "│ [19]  ❓    FAQ (MUST READ)                      │".bright_white()
-        );
-
-        // Exit (moved up)
-        println!(
-            "{}",
-            "│ [20]  🚪    Exit                                 │"
-                .red()
-                .bold()
-        );
-
-        println!(
-            "{}",
-            "╰──────────────────────────────────────────────────╯"
-                .cyan()
-                .bold()
+        Self::print(
+            "╰────────────────────────────────────────────────────────────╯",
+            MenuTone::Cyan,
+            true,
         );
     }
 
@@ -220,7 +261,6 @@ impl Menu {
         loop {
             // Only render the menu when explicitly requested via "0".
             if render_menu_next {
-                println!();
                 menu.display();
                 render_menu_next = false;
 
@@ -232,7 +272,7 @@ impl Menu {
             if menu_open {
                 // When open, show the command prompt ONCE, then stay quiet unless state changes.
                 if !open_prompt_printed {
-                    print!("{}", "Enter your command choice (0=menu, 1-20): ".cyan());
+                    print!("{}", "Enter command choice (0=menu, 1-20): ".cyan());
                     io::stdout().flush().map_err(|e| {
                         let msg = format!("Failed to flush stdout: {}", e);
                         json_logger
@@ -347,6 +387,21 @@ impl Menu {
         }
 
         Ok(())
+    }
+
+    fn print(line: &str, tone: MenuTone, bold: bool) {
+        let styled = match tone {
+            MenuTone::Cyan => line.cyan(),
+            MenuTone::BrightCyan => line.bright_cyan(),
+            MenuTone::Yellow => line.yellow(),
+            MenuTone::Green => line.green(),
+        };
+
+        if bold {
+            println!("{}", styled.bold());
+        } else {
+            println!("{}", styled);
+        }
     }
 }
 
