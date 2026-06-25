@@ -3,6 +3,8 @@ use remzar::commandline::command_line_002_menu::Menu;
 
 type TestResult = Result<(), Box<dyn std::error::Error>>;
 
+const REAL_MENU_SOURCE: &str = include_str!("../src/commandline/command_line_002_menu.rs");
+
 #[derive(Clone, Copy)]
 struct MenuRow {
     choice: u32,
@@ -16,140 +18,140 @@ fn menu_rows() -> [MenuRow; 20] {
     [
         MenuRow {
             choice: 1,
-            fragment: "│ [1]   🛢️     Setup Database                       │",
+            fragment: "│ [1]   🛢️   Setup Database                                  │",
             command: BlockchainSubcommand::SetupDatabase,
             all_label: "Setup Database",
             debug_name: "SetupDatabase",
         },
         MenuRow {
             choice: 2,
-            fragment: "│ [2]   💳    Generate New Wallet                  │",
+            fragment: "│ [2]   💳   Generate New Wallet                             │",
             command: BlockchainSubcommand::GenerateWallet,
             all_label: "Generate Wallet",
             debug_name: "GenerateWallet",
         },
         MenuRow {
             choice: 3,
-            fragment: "│ [3]   🌐         START NODE  🚀                  │",
+            fragment: "│ [3]   🌐   START ⇒  REMZAR BLOCKCHAIN NODE                 │",
             command: BlockchainSubcommand::StartNode,
             all_label: "Start Node",
             debug_name: "StartNode",
         },
         MenuRow {
             choice: 4,
-            fragment: "│ [4]   🖥️     View Blockchain Console              │",
+            fragment: "│ [4]   🖥️   View Blockchain Console                         │",
             command: BlockchainSubcommand::ViewConsole,
             all_label: "View Blockchain Console",
             debug_name: "ViewConsole",
         },
         MenuRow {
             choice: 5,
-            fragment: "│ [5]   📤    Send       ⇒    Remzar COIN           │",
+            fragment: "│ [5]   📤   Send       ⇒    Remzar COIN                     │",
             command: BlockchainSubcommand::SendRemzar,
             all_label: "Send REMZAR",
             debug_name: "SendRemzar",
         },
         MenuRow {
             choice: 6,
-            fragment: "│ [6]   📥    Receive    ⇐    Remzar COIN           │",
+            fragment: "│ [6]   📥   Receive    ⇐    Remzar COIN                     │",
             command: BlockchainSubcommand::ReceiveRemzar,
             all_label: "Receive REMZAR",
             debug_name: "ReceiveRemzar",
         },
         MenuRow {
             choice: 7,
-            fragment: "│ [7]   ✅    View Participant Status              │",
+            fragment: "│ [7]   ✅   View Participant Status                         │",
             command: BlockchainSubcommand::ViewStatus,
             all_label: "View Participant Status",
             debug_name: "ViewStatus",
         },
         MenuRow {
             choice: 8,
-            fragment: "│ [8]   💰    Balance of Wallet                    │",
+            fragment: "│ [8]   💰   Balance of Wallet                               │",
             command: BlockchainSubcommand::CheckBalance,
             all_label: "Balance of Wallet",
             debug_name: "CheckBalance",
         },
         MenuRow {
             choice: 9,
-            fragment: "│ [9]   💼    List Wallets                         │",
+            fragment: "│ [9]   💼   List Wallets                                    │",
             command: BlockchainSubcommand::ListWallets,
             all_label: "List Wallets",
             debug_name: "ListWallets",
         },
         MenuRow {
             choice: 10,
-            fragment: "│ [10]  🖼️     Create Certificates (mint)           │",
+            fragment: "│ [10]  🖼️   Create Certificates (mint)                      │",
             command: BlockchainSubcommand::CreateNft,
             all_label: "Create Certificates (mint)",
             debug_name: "CreateNft",
         },
         MenuRow {
             choice: 11,
-            fragment: "│ [11]  💬    Send Chat (p2p message)              │",
+            fragment: "│ [11]  💬   Send Chat (p2p message)                         │",
             command: BlockchainSubcommand::SendChat,
             all_label: "Send Chat (p2p message)",
             debug_name: "SendChat",
         },
         MenuRow {
             choice: 12,
-            fragment: "│ [12]  📂    Send File (p2p file sharing)         │",
+            fragment: "│ [12]  📂   Send File (p2p file sharing)                    │",
             command: BlockchainSubcommand::SendFile,
             all_label: "Send File (p2p file sharing)",
             debug_name: "SendFile",
         },
         MenuRow {
             choice: 13,
-            fragment: "│ [13]  🔓    Debug: Open Encrypted Private Key    │",
+            fragment: "│ [13]  🔓   Debug: Open Encrypted Private Key               │",
             command: BlockchainSubcommand::OpenEncryptedKey,
             all_label: "Debug: Open Encrypted Private Key",
             debug_name: "OpenEncryptedKey",
         },
         MenuRow {
             choice: 14,
-            fragment: "│ [14]  💾    Debug: Backup Wallet                 │",
+            fragment: "│ [14]  💾   Debug: Backup Wallet                            │",
             command: BlockchainSubcommand::BackupWallet,
             all_label: "Debug: Backup Wallet",
             debug_name: "BackupWallet",
         },
         MenuRow {
             choice: 15,
-            fragment: "│ [15]  🛠️     Debug: List Raw Database Keys        │",
+            fragment: "│ [15]  🛠️   Debug: List Raw Database Keys                   │",
             command: BlockchainSubcommand::DebugKeys,
             all_label: "Debug: List Raw Database Keys",
             debug_name: "DebugKeys",
         },
         MenuRow {
             choice: 16,
-            fragment: "│ [16]  📜    Debug: Log Information               │",
+            fragment: "│ [16]  📜   Debug: Log Information                          │",
             command: BlockchainSubcommand::DebugLogInfo,
             all_label: "Debug: Log Information",
             debug_name: "DebugLogInfo",
         },
         MenuRow {
             choice: 17,
-            fragment: "│ [17]  📑    Debug: Audit Report                  │",
+            fragment: "│ [17]  📑   Debug: Audit Report                             │",
             command: BlockchainSubcommand::AuditReport,
             all_label: "Debug: Audit Report",
             debug_name: "AuditReport",
         },
         MenuRow {
             choice: 18,
-            fragment: "│ [18]  🎰    Slot Machine Game                    │",
+            fragment: "│ [18]  🎰   Slot Machine Game                               │",
             command: BlockchainSubcommand::PlaySlots,
             all_label: "Slot Machine Game",
             debug_name: "PlaySlots",
         },
         MenuRow {
             choice: 19,
-            fragment: "│ [19]  ❓    FAQ (MUST READ)                      │",
+            fragment: "│ [19]  ❓   FAQ (MUST READ)                                 │",
             command: BlockchainSubcommand::Faq,
             all_label: "FAQ (MUST READ)",
             debug_name: "Faq",
         },
         MenuRow {
             choice: 20,
-            fragment: "│ [20]  🚪    Exit                                 │",
+            fragment: "│ [20]  🚪   Exit                                            │",
             command: BlockchainSubcommand::Exit,
             all_label: "Exit",
             debug_name: "Exit",
@@ -159,6 +161,13 @@ fn menu_rows() -> [MenuRow; 20] {
 
 fn menu_row_by_choice(choice: u32) -> Option<MenuRow> {
     menu_rows().into_iter().find(|row| row.choice == choice)
+}
+
+fn assert_real_menu_contains(fragment: &str) {
+    assert!(
+        REAL_MENU_SOURCE.contains(fragment),
+        "real command_line_002_menu.rs is missing expected menu fragment: {fragment}"
+    );
 }
 
 fn simulated_command_from_open_input(input: &str) -> Option<BlockchainSubcommand> {
@@ -612,163 +621,203 @@ fn test_49_from_choice_20_exit() {
 }
 
 #[test]
-fn test_50_menu_fragment_01_setup_database() {
+fn test_50_real_menu_fragment_01_setup_database() {
+    let expected = "│ [1]   🛢️   Setup Database                                  │";
     assert_eq!(
         menu_row_by_choice(1).map(|row| row.fragment),
-        Some("│ [1]   🛢️     Setup Database                       │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_51_menu_fragment_02_generate_new_wallet() {
+fn test_51_real_menu_fragment_02_generate_new_wallet() {
+    let expected = "│ [2]   💳   Generate New Wallet                             │";
     assert_eq!(
         menu_row_by_choice(2).map(|row| row.fragment),
-        Some("│ [2]   💳    Generate New Wallet                  │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_52_menu_fragment_03_start_node() {
+fn test_52_real_menu_fragment_03_start_node() {
+    let expected = "│ [3]   🌐   START ⇒  REMZAR BLOCKCHAIN NODE                 │";
     assert_eq!(
         menu_row_by_choice(3).map(|row| row.fragment),
-        Some("│ [3]   🌐         START NODE  🚀                  │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_53_menu_fragment_04_view_blockchain_console() {
+fn test_53_real_menu_fragment_04_view_blockchain_console() {
+    let expected = "│ [4]   🖥️   View Blockchain Console                         │";
     assert_eq!(
         menu_row_by_choice(4).map(|row| row.fragment),
-        Some("│ [4]   🖥️     View Blockchain Console              │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_54_menu_fragment_05_send_remzar_coin() {
+fn test_54_real_menu_fragment_05_send_remzar_coin() {
+    let expected = "│ [5]   📤   Send       ⇒    Remzar COIN                     │";
     assert_eq!(
         menu_row_by_choice(5).map(|row| row.fragment),
-        Some("│ [5]   📤    Send       ⇒    Remzar COIN           │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_55_menu_fragment_06_receive_remzar_coin() {
+fn test_55_real_menu_fragment_06_receive_remzar_coin() {
+    let expected = "│ [6]   📥   Receive    ⇐    Remzar COIN                     │";
     assert_eq!(
         menu_row_by_choice(6).map(|row| row.fragment),
-        Some("│ [6]   📥    Receive    ⇐    Remzar COIN           │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_56_menu_fragment_07_view_participant_status() {
+fn test_56_real_menu_fragment_07_view_participant_status() {
+    let expected = "│ [7]   ✅   View Participant Status                         │";
     assert_eq!(
         menu_row_by_choice(7).map(|row| row.fragment),
-        Some("│ [7]   ✅    View Participant Status              │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_57_menu_fragment_08_balance_of_wallet() {
+fn test_57_real_menu_fragment_08_balance_of_wallet() {
+    let expected = "│ [8]   💰   Balance of Wallet                               │";
     assert_eq!(
         menu_row_by_choice(8).map(|row| row.fragment),
-        Some("│ [8]   💰    Balance of Wallet                    │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_58_menu_fragment_09_list_wallets() {
+fn test_58_real_menu_fragment_09_list_wallets() {
+    let expected = "│ [9]   💼   List Wallets                                    │";
     assert_eq!(
         menu_row_by_choice(9).map(|row| row.fragment),
-        Some("│ [9]   💼    List Wallets                         │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_59_menu_fragment_10_create_certificates() {
+fn test_59_real_menu_fragment_10_create_certificates() {
+    let expected = "│ [10]  🖼️   Create Certificates (mint)                      │";
     assert_eq!(
         menu_row_by_choice(10).map(|row| row.fragment),
-        Some("│ [10]  🖼️     Create Certificates (mint)           │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_60_menu_fragment_11_send_chat() {
+fn test_60_real_menu_fragment_11_send_chat() {
+    let expected = "│ [11]  💬   Send Chat (p2p message)                         │";
     assert_eq!(
         menu_row_by_choice(11).map(|row| row.fragment),
-        Some("│ [11]  💬    Send Chat (p2p message)              │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_61_menu_fragment_12_send_file() {
+fn test_61_real_menu_fragment_12_send_file() {
+    let expected = "│ [12]  📂   Send File (p2p file sharing)                    │";
     assert_eq!(
         menu_row_by_choice(12).map(|row| row.fragment),
-        Some("│ [12]  📂    Send File (p2p file sharing)         │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_62_menu_fragment_13_open_encrypted_key() {
+fn test_62_real_menu_fragment_13_open_encrypted_key() {
+    let expected = "│ [13]  🔓   Debug: Open Encrypted Private Key               │";
     assert_eq!(
         menu_row_by_choice(13).map(|row| row.fragment),
-        Some("│ [13]  🔓    Debug: Open Encrypted Private Key    │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_63_menu_fragment_14_backup_wallet() {
+fn test_63_real_menu_fragment_14_backup_wallet() {
+    let expected = "│ [14]  💾   Debug: Backup Wallet                            │";
     assert_eq!(
         menu_row_by_choice(14).map(|row| row.fragment),
-        Some("│ [14]  💾    Debug: Backup Wallet                 │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_64_menu_fragment_15_debug_keys() {
+fn test_64_real_menu_fragment_15_debug_keys() {
+    let expected = "│ [15]  🛠️   Debug: List Raw Database Keys                   │";
     assert_eq!(
         menu_row_by_choice(15).map(|row| row.fragment),
-        Some("│ [15]  🛠️     Debug: List Raw Database Keys        │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_65_menu_fragment_16_log_information() {
+fn test_65_real_menu_fragment_16_log_information() {
+    let expected = "│ [16]  📜   Debug: Log Information                          │";
     assert_eq!(
         menu_row_by_choice(16).map(|row| row.fragment),
-        Some("│ [16]  📜    Debug: Log Information               │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_66_menu_fragment_17_audit_report() {
+fn test_66_real_menu_fragment_17_audit_report() {
+    let expected = "│ [17]  📑   Debug: Audit Report                             │";
     assert_eq!(
         menu_row_by_choice(17).map(|row| row.fragment),
-        Some("│ [17]  📑    Debug: Audit Report                  │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_67_menu_fragment_18_slot_machine_game() {
+fn test_67_real_menu_fragment_18_slot_machine_game() {
+    let expected = "│ [18]  🎰   Slot Machine Game                               │";
     assert_eq!(
         menu_row_by_choice(18).map(|row| row.fragment),
-        Some("│ [18]  🎰    Slot Machine Game                    │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_68_menu_fragment_19_faq() {
+fn test_68_real_menu_fragment_19_faq() {
+    let expected = "│ [19]  ❓   FAQ (MUST READ)                                 │";
     assert_eq!(
         menu_row_by_choice(19).map(|row| row.fragment),
-        Some("│ [19]  ❓    FAQ (MUST READ)                      │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
-fn test_69_menu_fragment_20_exit() {
+fn test_69_real_menu_fragment_20_exit() {
+    let expected = "│ [20]  🚪   Exit                                            │";
     assert_eq!(
         menu_row_by_choice(20).map(|row| row.fragment),
-        Some("│ [20]  🚪    Exit                                 │")
+        Some(expected)
     );
+    assert_real_menu_contains(expected);
 }
 
 #[test]
@@ -1011,6 +1060,8 @@ fn test_100_vector_edge_fuzz_and_load_menu_choice_suite() {
             simulated_command_from_open_input(&row.choice.to_string()),
             Some(row.command)
         );
+
+        assert_real_menu_contains(row.fragment);
     }
 
     for choice in 0_u32..=500_u32 {
